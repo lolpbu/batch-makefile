@@ -1,38 +1,47 @@
 @ECHO OFF
+SETLOCAL
 
-:: macros
-SET ALL=program.exe
+REM nao funciona pra arquivo src eeem pastas internas 
 
-SET SRCDIR="src"
+SET EXE=program.exe
+SET SRCDIR="."
 SET INCDIR="include"
 SET BINDIR="bin"
-SET EXT="cpp"
-SET CC="g++"
+SET EXT="c"
+SET CC="gcc"
+SET OBJS="%BINDIR%/*.o"
 
-SET SRCS="%SRCDIR%*.%EXT%"
-SET OBJS="%BINDIR%*.o"
+IF "%1"=="make" GOTO :MAKE 
+IF "%1"=="create" GOTO :CREATE 
+IF "%1"=="clear" GOTO :CLEAR
 
-IF %1=="make" GOTO MAKE 
-IF %1=="create" GOTO CREATE 
+ECHO "make [make {run}] [createte] [clear]"
+GOTO :EOF
 
-ECHO "make <make|create> [run]"
-GOTO EOF
 
 
 :MAKE 
-%CC% -I %INCDIR% %SRCS% -O %BINDIR%/file.o
-:: ^ fazer pra todos os arquivos como nao sei for do batch e estranho
-FORFILES /P %SRCS% /M *.%EXT% /C "%CC% -I %INCDIR% @FNAME -O %BINDIR%/@FNAME.O"
+REM /p = path to search
+REM /m = search mask (* wildcard)
+REM /s = recurse into subfolders
+REM /c = command to each file found 
+FORFILES /P %SRCDIR% /M *.%EXT% /S /C "CMD /C ECHO compilando arquivo @file && %CC% -I %INCDIR% -c @relpath -o %BINDIR%\\@FNAME.o"
+ECHO linkando arquivos em %EXE%
+%CC% %OBJS% -o %EXE%
+ECHO pronto :3
 
-%CC% %OBJS% -O %ALL%
+IF "%2"=="run" (
+    CLS
+    %EXE%
+)
 
-IF %2 == "RUN"
-    %ALL%
-
-GOTO EOF
+GOTO :EOF
 
 :CREATE
+MKDIR %INCDIR% %BINDIR%
 
-MKDIR src include bin
+:CLEAR
+DEL /Q /S *.o *.exe %BINDIR%\*
 
 :EOF
+ENDLOCAL
