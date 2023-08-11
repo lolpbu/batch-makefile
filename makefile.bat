@@ -4,7 +4,7 @@ SETLOCAL
 SET EXE="program.exe"
 SET SRCDIR="."
 SET INCDIR="include"
-SET BINDIR="bin"
+SET BINDIR="out"
 SET EXT="c"
 SET CC="gcc"
 SET OBJS="%BINDIR%/*.o"
@@ -17,10 +17,10 @@ GOTO :MAKE
 
 
 :HELP
-ECHO "make        -> compile"
-ECHO "make run    -> compile & run"
-ECHO "make create -> create bin, src & include dirs"
-ECHO "make help   -> ..."
+ECHO make        -^> compile
+ECHO make run    -^> compile ^& run
+ECHO make create -^> create bin, src ^& include dirs
+ECHO make help   -^> ...
 GOTO :EOF
 
 
@@ -31,9 +31,9 @@ REM /m = search mask (* wildcard)
 REM /s = recurse into subfolders
 REM /c = command to each file found 
 FORFILES /P %SRCDIR% /M *.%EXT% /S /C "CMD /C ECHO compilando arquivo @file && %CC% -I %INCDIR% -c @relpath -o %BINDIR%\\@FNAME.o"
-ECHO "linkando arquivos em %EXE%"
+CALL ECHO linkando arquivos em %EXE%
 %CC% %OBJS% -o %EXE%
-ECHO "pronto :3"
+ECHO pronto :3
 
 IF "%2"=="run" (
     CLS
