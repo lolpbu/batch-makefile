@@ -10,7 +10,7 @@ SET CC="gcc"
 SET OBJS="%BINDIR%/*.o"
 
 IF "%1"=="create" GOTO :CREATE 
-IF "%1"=="clear" GOTO :CLEAR
+IF "%1"=="clean" GOTO :CLEAN
 IF "%1"=="help" GOTO :HELP
 GOTO :MAKE 
 
@@ -20,6 +20,7 @@ GOTO :MAKE
 ECHO make        -^> compile
 ECHO make run    -^> compile ^& run
 ECHO make create -^> create bin, src ^& include dirs
+ECHO make clean  -^> clean bin dir
 ECHO make help   -^> ...
 GOTO :EOF
 
@@ -50,7 +51,7 @@ GOTO :EOF
 
 
 
-:CLEAR
+:CLEAN
 DEL /Q /S *.o *.exe %BINDIR%\*
 
 
