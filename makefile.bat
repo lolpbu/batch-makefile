@@ -32,7 +32,7 @@ REM /m = search mask (* wildcard)
 REM /s = recurse into subfolders
 REM /c = command to each file found 
 FORFILES /P %SRCDIR% /M *.%EXT% /S /C "CMD /C ECHO compilando arquivo @file && %CC% -I %INCDIR% -c @relpath -o %BINDIR%\\@FNAME.o"
-CALL ECHO linkando arquivos em %EXE%
+ECHO linkando arquivos em %EXE%
 %CC% %OBJS% -o %EXE%
 ECHO pronto :3
 
