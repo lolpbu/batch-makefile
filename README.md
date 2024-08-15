@@ -1,5 +1,18 @@
 # oi
 
+mudar os valores no inicio do arqivbo como `%SRCDIR%` e `%CC`
+
+comandos:
+```
+make        -> compile
+make run    -> compile & run
+make file   -> compile one file
+make create -> create bin, src & include dirs
+make clean  -> clean bin dir
+make help   -> ...
+```
+
+exemplo de dir tree:
 - src/
   - main.c
   - aaa.c
@@ -14,7 +27,5 @@
 
 #
 
-usar make_makefile.bat pra criar o arquivo\
-mudar os valores no inicio do arqibvo como `%SRCDIR%` e `%CC%`\
 nao funciona se bnnota mais pastas dentro do src/ :3 (TALVEZZ resolver isso dps)\
-![oi](https://media.discordapp.net/attachments/741889965171933217/1122696779360636948/QuXmDECH_400x400.jpg)
+![muehehe](https://pbs.twimg.com/media/F6o7lqoWkAATaLQ?format=jpg&name=small)
